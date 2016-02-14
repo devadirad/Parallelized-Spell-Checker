@@ -1,11 +1,3 @@
-/*
-*********************************************
-*  314 Principles of Programming Languages  *
-*  Fall 2015                                *
-*  Project 3                                *
-*********************************************
-*/
-
 #include "hash.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -29,9 +21,7 @@ int main(int argc, char *argv[])
 	size_t i, j;
 	unsigned int hash;
 	int misspelled;
-	// Set Number of threads to 2
-	omp_set_num_threads(2); 
-	//
+
 	if (argc != 2) {
 		printf("Please give word to spell check\n");
 		exit(EXIT_FAILURE);
@@ -56,9 +46,8 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 	
-	#pragma omp parallel for schedule(runtime) private(i, hash)
-	for (j = 0; j < num_hf; j++) {
-		for (i = 0; i < wl_size; i++) {
+	for (i = 0; i < wl_size; i++) {
+		for (j = 0; j < num_hf; j++) {
 			hash = hf[j] (get_word(wl, i));
 			hash %= bv_size;
 			bv[hash] = 1;
